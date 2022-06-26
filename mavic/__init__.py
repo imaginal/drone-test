@@ -8,4 +8,4 @@ def stop():
 
 
 def run():
-    print(start())
+    print("Mavic say:", start())
