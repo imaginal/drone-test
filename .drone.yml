@@ -3,8 +3,24 @@ type: docker
 name: default
 
 steps:
-- name: build
+- name: prepare
   image: python:3.10-slim
   commands:
   - pip install --upgrade pip wheel setuptools
   - pip install -r requirements.txt
+
+- name: install
+  commands:
+  - python setup.py install
+
+- name: run_tests
+  commands:
+  - pytest
+
+- name: run_cov
+  commands:
+  - pytest --cov=mavic --cov-report annotate
+
+- name: run_mavic
+  commands:
+  - python -m mavic
