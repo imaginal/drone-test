@@ -1,0 +1,8 @@
+build
+dist
+venv
+logs
+*.egg-info
+.coverage
+__pycache__
+*.pyc
