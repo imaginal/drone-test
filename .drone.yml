@@ -9,32 +9,36 @@ steps:
     - name: docker_sock
       path: /var/run/docker.sock
   commands:
-    - docker build -t mymavic .
+    - docker build -t mavic .
 
 - name: prepare
-  image: mymavic
+  image: python:3.10-slim
   commands:
   - pip install --upgrade pip wheel setuptools
   - pip install -r requirements.txt
 
 - name: run_tests
-  image: mymavic
+  image: python:3.10-slim
   commands:
   - pip install -r requirements.txt
+  - python setup.py install
   - pytest
 
 - name: run_cov
-  image: mymavic
+  image: python:3.10-slim
   commands:
   - pip install -r requirements.txt
+  - python setup.py install
   - pytest --cov=mavic --cov-report annotate
 
 - name: run_mavic
-  image: mymavic
+  image: python:3.10-slim
   commands:
+  - python setup.py install
   - python -m mavic
 
 volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
+  
